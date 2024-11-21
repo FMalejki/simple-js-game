@@ -42,7 +42,6 @@ function addToScore(numberToAdd){
     let number = parseInt(score.innerText)+numberToAdd
 
     if( number < 0 ){
-        heartTurnOff()
         score.innerText = '0000'
     } else if (number < 10) {
         score.innerText = '000' + number;
@@ -162,14 +161,9 @@ function startZombieSpawner() {
     }, spawnRate);
 }
 
-function stopZombieSpawner() {
-    console.log("zombie spawner")
-    clearInterval(zombieSpawnerInterval);
-}
 
 function resetGame(){
     console.log('aaaa')
-    stopZombieSpawner()
     positionMap = 0
     imagePositionX = 0
     popup.style.display = 'none'
@@ -184,9 +178,10 @@ function resetGame(){
     heart3.src = "./media/full_heart.png"
     container.addEventListener('click', handleClickOnContainer);
     const zombies = document.querySelectorAll('.single-zombie');
-    zombies.forEach(zombie => zombie.remove());
-    startZombieSpawner();
-
+    zombies.forEach(zombie => {
+        zombie.style.display = 'none'
+        zombie.remove()
+    });
 }
 
 resetButton.addEventListener('click', () => {
