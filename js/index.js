@@ -11,6 +11,8 @@ const body = document.getElementById('body')
 const zombieContainer = document.querySelector('.zombie-container');
 const spawnRate = 1000;
 score.innerText = '0000';
+const startButton = document.getElementById('startButton')
+const startGamePopup = document.getElementById('startGamePopup')
 
 function handleClickOnContainer(event){
     addToScore(-5);
@@ -60,9 +62,9 @@ function gameOver(){
 }
 
 function animateZombie(zombie, image) {
-    let positionMap = 0//parseFloat(zombie.style.right.replace('vw', ''));
+    let positionMap = parseFloat(zombie.style.right.replace('vw', ''));
     const zombieWidth = parseFloat(zombie.style.width.replace('px', ''));
-    const imageWidth = parseFloat(image.style.width.replace('px', '')); // Total width of the sprite sheet
+    const imageWidth = parseFloat(image.style.width.replace('px', ''));
     const containerWidth = zombie.offsetWidth;
     const speed = Math.random() * (0.5 - 0.2) + 0.2;
     let imagePositionX = 0
@@ -99,9 +101,9 @@ function animateZombie(zombie, image) {
 
 function randomizeParameters(zombie, image){
 
-    const positionMap = Math.floor(Math.random() * (30 - 0) + 0); // 0 to 30
-    const zombiePositionY = Math.floor(Math.random() * (70 - 50) + 50); // 50 to 70
-    const zombieWidth = Math.floor(Math.random() * (200 - 60) + 60); // 60 to 200
+    const positionMap = Math.floor(Math.random() * (30 - 0) + 0);
+    const zombiePositionY = Math.floor(Math.random() * (70 - 50) + 50);
+    const zombieWidth = Math.floor(Math.random() * (200 - 60) + 60);
     const allZombiesWidth = zombieWidth*10;
 
     zombie.style.zIndex = `${zombieWidth}`
@@ -176,9 +178,6 @@ resetButton.addEventListener('click', () => {
     resetGame()
 })
 
-const startButton = document.getElementById('startButton')
-const startGamePopup = document.getElementById('startGamePopup')
-
 function startGame(){
     startGamePopup.style.display = 'none'
     startZombieSpawner()
@@ -197,15 +196,3 @@ startButton.addEventListener('click', () => {
     });
     startGame()
 })
-
-
-//resetButton - done
-
-//appendChild
-
-//to randomize: - done
-//imagePositionX = width of singleZombie
-//width of singleZombie * 10 = width of allZombies
-//top singleZombie - difference
-//positionMap
-//createZombie()
