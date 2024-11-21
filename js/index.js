@@ -21,17 +21,13 @@ container.addEventListener('click', handleClickOnContainer);
 
 
 function heartTurnOff(){
-    console.log("in function")
     if( heart1.getAttribute('src') === "./media/full_heart.png" ){
-        console.log("in first if")
         heart1.src = "./media/empty_heart.png"
     }
     else if( heart2.getAttribute('src') === "./media/full_heart.png" ){
-        console.log("in second if")
         heart2.src = "./media/empty_heart.png"
     }
     else{
-        console.log("in third if")
         heart3.src = "./media/empty_heart.png"
         gameOver();
     }
@@ -62,14 +58,6 @@ function gameOver(){
     container.style.pointerEvents = 'none'
     container.removeEventListener('click', handleClickOnContainer);
 }
-
-document.addEventListener('mousemove', (event) => {
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-
-    aim.style.left = `${mouseX}px`;
-    aim.style.top = `${mouseY}px`;
-});
 
 function animateZombie(zombie, image) {
     let positionMap = 0//parseFloat(zombie.style.right.replace('vw', ''));
@@ -163,13 +151,13 @@ function startZombieSpawner() {
 
 
 function resetGame(){
-    console.log('aaaa')
     positionMap = 0
     imagePositionX = 0
     popup.style.display = 'none'
     aim.style.display = 'block'
     body.style.cursor = 'none'
     container.style.pointerEvents = 'all'
+    score.innerText = '0000'
 
     sadMusic.pause()
     sadMusic.currentTime = 0
@@ -185,8 +173,29 @@ function resetGame(){
 }
 
 resetButton.addEventListener('click', () => {
-    console.log('aaa')
     resetGame()
+})
+
+const startButton = document.getElementById('startButton')
+const startGamePopup = document.getElementById('startGamePopup')
+
+function startGame(){
+    startGamePopup.style.display = 'none'
+    startZombieSpawner()
+}
+
+startButton.addEventListener('click', () => {
+    aim.style.display = 'block'
+    body.style.cursor = 'none'
+
+    document.addEventListener('mousemove', (event) => {
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+    
+        aim.style.left = `${mouseX}px`;
+        aim.style.top = `${mouseY}px`;
+    });
+    startGame()
 })
 
 
@@ -200,5 +209,3 @@ resetButton.addEventListener('click', () => {
 //top singleZombie - difference
 //positionMap
 //createZombie()
-
-startZombieSpawner()
