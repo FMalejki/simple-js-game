@@ -9,6 +9,7 @@ const sadMusic = document.getElementById('sadMusic');
 const resetButton = document.getElementById('resetButton')
 const body = document.getElementById('body')
 const zombieContainer = document.querySelector('.zombie-container');
+const spawnRate = 1000;
 score.innerText = '0000';
 
 function handleClickOnContainer(event){
@@ -72,29 +73,29 @@ document.addEventListener('mousemove', (event) => {
 });
 
 function animateZombie(zombie, image) {
-    let positionMap = parseFloat(zombie.style.right.replace('%', ''));
+    let positionMap = 0//parseFloat(zombie.style.right.replace('vw', ''));
     const zombieWidth = parseFloat(zombie.style.width.replace('px', ''));
-    const imageWidth = image.offsetWidth;
+    const imageWidth = parseFloat(image.style.width.replace('px', '')); // Total width of the sprite sheet
     const containerWidth = zombie.offsetWidth;
     const speed = Math.random() * (0.5 - 0.2) + 0.2;
+    let imagePositionX = 0
     let last = 0
     let fps = 32
     let interval = 1000/fps
-    let imagePositionX = 0
 
     function animate(timestamp){
-        if (positionMap < 100-(zombieWidth/4) && heart3.getAttribute('src') === "./media/full_heart.png") {
+        if (positionMap < 100 && zombie.style.display !== 'none') {
             if(timestamp - last >= interval){
                 last = timestamp
-                imagePositionX += zombieWidth;
+                console.log(positionMap)
+                imagePositionX = (imagePositionX + zombieWidth)%(imageWidth - containerWidth);
                 positionMap += speed;
-                zombie.style.right = `${positionMap}%`;
-                if (imagePositionX > imageWidth- containerWidth) {
-                    imagePositionX = 0; 
-                }
+                zombie.style.right = `${positionMap}vw`;
                 image.style.transform = `translateX(-${imagePositionX}px)`;
+
             }
             requestAnimationFrame(animate)
+
         }
         else{
             console.log("get to end")
@@ -111,12 +112,13 @@ function animateZombie(zombie, image) {
 
 function randomizeParameters(zombie, image){
 
-    positionMap = Math.floor(Math.random() * (30 - 0) + 0); // 0 to 30
-    zombiePositionY = Math.floor(Math.random() * (70 - 50) + 50); // 50 to 70
-    zombieWidth = Math.floor(Math.random() * (200 - 60) + 60); // 60 to 200
-    allZombiesWidth = zombieWidth*10;
+    const positionMap = Math.floor(Math.random() * (30 - 0) + 0); // 0 to 30
+    const zombiePositionY = Math.floor(Math.random() * (70 - 50) + 50); // 50 to 70
+    const zombieWidth = Math.floor(Math.random() * (200 - 60) + 60); // 60 to 200
+    const allZombiesWidth = zombieWidth*10;
 
-    zombie.style.right = `${positionMap}%`
+    zombie.style.zIndex = `${zombieWidth}`
+    zombie.style.right = `${positionMap}vw`
     zombie.style.width = `${zombieWidth}px`
     zombie.style.top = `${zombiePositionY}%`
     image.style.width = `${allZombiesWidth}px`
@@ -132,10 +134,11 @@ function createZombie(){
     imageZombie.src = './media/walkingdead.png';
 
     randomizeParameters(newZombie, imageZombie)
+    console.log(newZombie.style.right)
 
     newZombie.addEventListener('click', (event) => {
         event.stopPropagation();
-        newZombie.remove();
+        newZombie.style.display = 'none';
         addToScore(20);
     })
 
@@ -150,14 +153,23 @@ function addZombie() {
     animateZombie(newZombie[0], newZombie[1])
 }
 
+let i = 0
 function startZombieSpawner() {
+    console.log('started spawner')
+
     setInterval(() => {
         addZombie();
-    }, 2000);
+    }, spawnRate);
+}
+
+function stopZombieSpawner() {
+    console.log("zombie spawner")
+    clearInterval(zombieSpawnerInterval);
 }
 
 function resetGame(){
     console.log('aaaa')
+    stopZombieSpawner()
     positionMap = 0
     imagePositionX = 0
     popup.style.display = 'none'

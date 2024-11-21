@@ -59,11 +59,9 @@
 }
 
 .zombie-container{
-    display: flex;
+    position: relative;
     width: 100%;
     height: 50%;
-    align-self: end;
-    justify-content: end;
 }
 
 .single-zombie{
@@ -71,7 +69,7 @@
     width: 60px;
     height: auto;
     overflow: hidden;
-    position: relative;
+    position: absolute;
     right: 0;
     user-select: none;
 }
