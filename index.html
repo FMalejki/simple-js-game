@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Wdai - micro-project</title>
+        <link rel="icon" type="image-x/icon" href="https://logowik.com/content/uploads/images/agh-university-of-science-and-technology1357.logowik.com.webp">
+        <link rel="stylesheet" href="styles/indexcss.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    </head>
+    <body class="body" id="body">
+        <img id="aim" class="aim" src="./media/aim.png">
+        <div id="gameOverPopup" class="popup">
+            <p>Game Over</p>
+            <button id="resetButton">Restart Game</button>
+        </div>
+        <audio id="sadMusic" src="./media/sad-music.mp3" loop></audio>
+        <div id="container" class="container">
+            <div class="head">
+                <div class="hearts">
+                    <img src="./media/full_heart.png" id="heart3" class="heart"></img>
+                    <img src="./media/full_heart.png" id="heart2" class="heart"></img>
+                    <img src="./media/full_heart.png" id="heart1" class="heart"></img>
+                </div>
+                <div class="score-container">
+                    <div id="score" class="score">0000</div>
+                </div>
+            </div>
+            <div class="zombie-container">
+                <div class="single-zombie" id="single-zombie">
+                    <img class="all-zombies" id="all-zombies" src="./media/walkingdead.png">
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/index.js"></script>
+</html>
