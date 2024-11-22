@@ -12,7 +12,7 @@ const zombieContainer = document.querySelector('.zombie-container');
 const spawnRate = 1000;
 score.innerText = '0000';
 const startButton = document.getElementById('startButton')
-const startGamePopup = document.getElementById('startGamePopup')
+const startGamePopup = document.getElementById('startGamePopup')in
 
 function handleClickOnContainer(event){
     addToScore(-5);

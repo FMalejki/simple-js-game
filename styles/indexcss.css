@@ -114,7 +114,7 @@
     font-size: 10vh;
     font-family: 'Courier New', Courier, monospace;
     background-color: blueviolet;
-
+    cursor: pointer;
 }
 
 .resetButton:hover{
